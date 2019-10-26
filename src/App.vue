@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    hm-toutiao-pc-85
-    <el-button type="success">成功按钮</el-button>
+    <!-- 一级路由容器 -->
+    <router-view></router-view>
   </div>
 </template>
 
