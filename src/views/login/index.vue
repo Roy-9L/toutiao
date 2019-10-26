@@ -5,14 +5,17 @@
     <el-card class="box-card">
       <img src="../../assets/logo_index.png" alt />
       <!-- 表单 -->
-      <el-form :v-model="LoginForm">
+      <!-- el-form 上添加属性  rules  值是  校验规则对象 -->
+      <el-form ref="LoginForm" :model="LoginForm" :rules="LoginRules">
         <!-- 表单容器 -->
-        <el-form-item>
+        <!-- el-form-item 上添加属性  prop  值是  当前字段的名字 -->
+        <el-form-item prop="mobile">
           <!-- 表单元素 -->
           <el-input v-model="LoginForm.mobile" placeholder="请输入手机号"></el-input>
         </el-form-item>
         <!-- 表单容器 -->
-        <el-form-item>
+        <!-- el-form-item 上添加属性  prop  值是  当前字段的名字 -->
+        <el-form-item prop="code">
           <!-- 表单元素 -->
           <el-input
             v-model="LoginForm.code"
@@ -29,7 +32,7 @@
         <!-- 表单容器 -->
         <el-form-item>
           <!-- 表单元素 -->
-          <el-button type="primary" @click="onSubmit" style="width:100%;">登录</el-button>
+          <el-button type="primary" @click="login" style="width:100%;">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -39,16 +42,69 @@
 <script>
 export default {
   data () {
+    // 自定义校验(要在return之前声明) 手机号
+    //     - rule  当前字段的校验规则
+    // - value 当前字段的值
+    // - callback 校验完毕后的回调函数
+    //   - callback()  成功
+    //   - callback(new Error('提示信息'))  失败
+    const checkMobile = (rule, value, callback) => {
+      // 1开头  第二位 3-9 之间  9位数字结尾
+      if (/^1[3-9]\d*9$/.test(value)) {
+        callback()
+      } else {
+        callback(new Error('手机号码格式不正确'))
+      }
+    }
     return {
       LoginForm: {
         mobile: '',
         code: ''
+      },
+      // 校验规则对象
+      LoginRules: {
+        // 因为可能有多条校验规则，所以是数组格式
+        mobile: [
+          // trigger:触发 blur  失去焦点时触发
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          {
+            validator: checkMobile,
+            trigger: 'blur'
+          }
+        ],
+        code: [
+          {
+            required: true,
+            message: '请输入验证码',
+            trigger: 'blur'
+          },
+          {
+            len: 6,
+            message: '验证码为6位',
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
   methods: {
-    onSubmit () {
-      alert('onSubmit')
+    login () {
+      // 对整个表单进行验证
+      this.$refs['LoginForm'].validate(valid => {
+        if (valid) {
+          // valid=true,校验成功，登录(发送请求，跳转到首页)
+          // 发送请求
+          this.$axios
+            .post('authorizations', this.LoginForm)
+            .then(data => {
+              // 成功
+              this.$router.push('/')
+            })
+            .catch(() => {
+              this.$message.error('手机号或验证码错误')
+            })
+        }
+      })
     }
   }
 }
