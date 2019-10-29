@@ -40,6 +40,8 @@
 </template>
 
 <script>
+// 导入本地操作用户信息的模块
+import local from '../../utils/local'
 export default {
   data () {
     // 自定义校验(要在return之前声明) 手机号
@@ -50,7 +52,7 @@ export default {
     //   - callback(new Error('提示信息'))  失败
     const checkMobile = (rule, value, callback) => {
       // 1开头  第二位 3-9 之间  9位数字结尾
-      if (/^1[3-9]\d*9$/.test(value)) {
+      if (/^1[3-9]\d{9}$/.test(value)) {
         callback()
       } else {
         callback(new Error('手机号码格式不正确'))
@@ -96,9 +98,11 @@ export default {
           // 发送请求
           this.$axios
             .post('authorizations', this.LoginForm)
-            .then(data => {
-              // 成功
-              this.$router.push('/')
+            .then(res => {
+              // 成功 data是响应对象，data.data是响应主体
+              // 保存用户信息(token)
+              local.setUser(res.data.data)
+              this.$router.push('/Home')
             })
             .catch(() => {
               this.$message.error('手机号或验证码错误')
