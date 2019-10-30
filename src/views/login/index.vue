@@ -60,8 +60,8 @@ export default {
     }
     return {
       LoginForm: {
-        mobile: '',
-        code: ''
+        mobile: '18999999999',
+        code: '246810'
       },
       // 校验规则对象
       LoginRules: {
@@ -92,21 +92,36 @@ export default {
   methods: {
     login () {
       // 对整个表单进行验证
-      this.$refs['LoginForm'].validate(valid => {
+      this.$refs['LoginForm'].validate(async valid => {
         if (valid) {
-          // valid=true,校验成功，登录(发送请求，跳转到首页)
+          // valid=true,校验成功，进行登录(发送请求，跳转到首页)
           // 发送请求
-          this.$axios
-            .post('authorizations', this.LoginForm)
-            .then(res => {
-              // 成功 data是响应对象，data.data是响应主体
-              // 保存用户信息(token)
-              local.setUser(res.data.data)
-              this.$router.push('/Home')
-            })
-            .catch(() => {
-              this.$message.error('手机号或验证码错误')
-            })
+          // this.$axios
+          //   .post('authorizations', this.LoginForm)
+          //   .then(res => {
+          //     // 成功 res.data是响应主体
+          //     // 保存用户信息(token)
+          //     local.setUser(res.data.data)
+          //     this.$router.push('/Home')
+          //   })
+          //   .catch(() => {
+          //     // 失败，提示
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+
+          // const res=await this.$axios.post('authorizations', this.LoginForm)
+
+          // 一下代码可能出现异常(报错)  使用try(可能报错的代码)catah(e){处理错误}   e:exception 异常
+          try {
+            // 对象结构赋值
+            const {
+              data: { data }
+            } = await this.$axios.post('authorizations', this.LoginForm)
+            local.setUser(data)
+            this.$router.push('/Home')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
