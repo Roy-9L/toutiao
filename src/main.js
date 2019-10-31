@@ -7,6 +7,16 @@ import App from './App.vue'
 // 2. @ 别名  指定的是 /src 路径  一个绝对路径。 基于webpack
 import router from '@/router'
 import axios from './api/index'
+
+// // 导入面包屑组件
+// import MyBread from './components/my-bread'
+// // 全局注册面包屑组件  component('组件名',组件配置对象)
+// Vue.component('my-bread', MyBread)
+
+// 使用插件：Vue.use(插件)   plugin：插件
+import plugin from './components/index'
+Vue.use(plugin)
+
 Vue.prototype.$axios = axios
 // ElementUI 是一个插件  集成了很多组件
 Vue.use(ElementUI)

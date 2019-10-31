@@ -14,7 +14,7 @@
       -->
       <!-- 给el-menu加上属性  router    按照 index 的值 进行跳转  开启路由功能-->
       <el-menu
-        default-active="/Home"
+        :default-active="$route.path"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -24,7 +24,7 @@
         router
       >
         <!-- index="/" 当前菜单项的唯一标识 -->
-        <el-menu-item index="/Home">
+        <el-menu-item index="/">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -176,8 +176,8 @@ export default {
       }
     }
   }
-  .el-main {
-    padding: 0;
-  }
+  // .el-main {
+  //   padding: 0;
+  // }
 }
 </style>

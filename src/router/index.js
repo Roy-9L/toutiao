@@ -9,6 +9,8 @@ import Home from '../views/Home'
 import welcome from '../views/welcome'
 // 404页面
 import NotFound from '../views/404'
+// 内容管理
+import Article from '../views/article'
 
 import local from '../utils/local'
 // 使用
@@ -37,8 +39,13 @@ const router = new VueRouter({
       children: [
         // 欢迎页面
         {
-          path: '/Home',
+          path: '/',
           component: welcome
+        },
+        // 内容管理
+        {
+          path: '/article',
+          component: Article
         }
         /// / 404   错误写法，不能写在二级路由里  否则在进行跳转时，地址会默认带上二级路由的 /
         // {
