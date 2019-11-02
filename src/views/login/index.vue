@@ -118,7 +118,7 @@ export default {
               data: { data }
             } = await this.$axios.post('authorizations', this.LoginForm)
             local.setUser(data)
-            this.$router.push('/Home')
+            this.$router.push('/')
           } catch (e) {
             this.$message.error('手机号或验证码错误')
           }
