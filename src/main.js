@@ -8,6 +8,8 @@ import App from './App.vue'
 import router from '@/router'
 import axios from './api/index'
 
+import './styles/index.less'
+
 // // 导入面包屑组件
 // import MyBread from './components/my-bread'
 // // 全局注册面包屑组件  component('组件名',组件配置对象)

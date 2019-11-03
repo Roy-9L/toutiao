@@ -11,6 +11,16 @@ import welcome from '../views/welcome'
 import NotFound from '../views/404'
 // 内容管理
 import Article from '../views/article'
+// 素材管理
+import Image from '../views/image'
+// 发布文章
+import Publish from '../views/publish'
+// 评论管理
+import Comment from '../views/comment'
+// 粉丝管理
+import Fans from '../views/fans'
+// 个人设置
+import Setting from '../views/setting'
 
 import local from '../utils/local'
 // 使用
@@ -46,6 +56,31 @@ const router = new VueRouter({
         {
           path: '/article',
           component: Article
+        },
+        // 素材管理
+        {
+          path: '/image',
+          component: Image
+        },
+        // 发布文章
+        {
+          path: '/publish',
+          component: Publish
+        },
+        // 评论管理
+        {
+          path: '/comment',
+          component: Comment
+        },
+        // 粉丝管理
+        {
+          path: '/fans',
+          component: Fans
+        },
+        // 个人设置
+        {
+          path: '/setting',
+          component: Setting
         }
         /// / 404   错误写法，不能写在二级路由里  否则在进行跳转时，地址会默认带上二级路由的 /
         // {
