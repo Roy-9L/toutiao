@@ -1,4 +1,5 @@
 <template>
+  <!-- 内容管理模块===>频道组件 -->
   <el-select :value="value " @change="fn" placeholder="请选择" clearable>
     <el-option v-for="item in channelOptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
   </el-select>

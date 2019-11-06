@@ -1,3 +1,4 @@
+
 // 封装一个插件，注册所有的全局组件
 /**
  * vue插件封装
@@ -13,9 +14,12 @@
 - 使用插件：Vue.use(插件)
 
  */
+// 面包屑导航组件
 import MyBread from './my-bread'
-
+// 频道组件
 import MyChannel from './my-channel'
+// 封面图组件
+import MyImage from './my-image'
 
 export default {
   install (Vue) {
@@ -23,5 +27,6 @@ export default {
     // 注册
     Vue.component(MyBread.name, MyBread)
     Vue.component(MyChannel.name, MyChannel)
+    Vue.component(MyImage.name, MyImage)
   }
 }

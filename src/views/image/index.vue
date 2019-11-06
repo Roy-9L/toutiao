@@ -19,7 +19,7 @@
         <!-- <span>上传组件</span> -->
         <!-- 上传组件 -->
         <!-- action 是图片上传的接口地址  因为此时发请求的不是axios，而是el-upload，所以必须写完整的地址-->
-        <!-- header 上传组件的请求头 -->
+        <!-- headers 上传组件的请求头   配置token -->
         <!-- name 提交文件的字段名称  需要和后台保持一致  -->
         <el-upload
           class="avatar-uploader"
@@ -79,7 +79,7 @@ export default {
       dialogVisible: false,
       // 上传成功后的图片地址
       imageUrl: null,
-      // 设置请求头
+      // 设置请求头  上传组件时用
       headers: {
         Authorization: `Bearer ${local.getUser().token}`
       }
